@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Synth from './synth/Synth'
+import Synth from './components/synth/Synth'
 
 class App extends Component {
   render() {
