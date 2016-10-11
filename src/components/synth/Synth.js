@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Rcslider from 'rc-slider'
 
-import Key from '../key/Key'
+import Keyboard from '../keyboard/Keyboard'
 
 require('rc-slider/assets/index.css')
 
@@ -15,16 +15,6 @@ export default class Synth extends Component {
       oscillator: {},
       gainNode: {},
       hasntStarted: true,
-      keys: [
-        {name: 'A', hertz: '880'},
-        {name: 'B', hertz: '987.767'},
-        {name: 'C', hertz: '1046.50'},
-        {name: 'D', hertz: '1174.66'},
-        {name: 'E', hertz: '1318.51'},
-        {name: 'F', hertz: '1396.91'},
-        {name: 'G', hertz: '1567.98'},
-        {name: 'A2', hertz: '1760'},
-      ]
     };
   }
   
@@ -67,20 +57,19 @@ export default class Synth extends Component {
   }
 
   changeFrequency = frequency => {
+    console.log("changeFrequency")
+    console.log(frequency)
+
     this.state.oscillator.frequency.value = frequency
   }
 
   renderKeys = () => {
-    return this.state.keys.map(key => (
-      <div className="keys-container"
-        key={key.name}
-        onClick={() => this.changeFrequency(key.hertz)}>
-        <Key 
-          name={key.name}
-          frequency={key.hertz}
-        />
-      </div>
-    ))
+    return (
+      <Keyboard 
+        onKeyClick={this.changeFrequency}
+        keyboardPress={this.changeFrequency}
+      />
+    )
   }
 
   render() {
