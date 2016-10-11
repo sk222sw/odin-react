@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 
 import Key from '../key/Key'
+import {keys} from '../../assets/keys.json'
 
 export default class Keyboard extends Component {
   constructor(props) {
     super(props);
-    
     this.state = {
-      keys: [
-        {keyPress: 'z', name: 'A', hertz: '880'},
-        {keyPress: 'x', name: 'B', hertz: '987.767'},
-        {keyPress: 'c', name: 'C', hertz: '1046.50'},
-        {keyPress: 'v', name: 'D', hertz: '1174.66'},
-        {keyPress: 'b', name: 'E', hertz: '1318.51'},
-        {keyPress: 'n', name: 'F', hertz: '1396.91'},
-        {keyPress: 'm', name: 'G', hertz: '1567.98'},
-        {keyPress: 'a', name: 'A2', hertz: '1760'},
-      ]
+      keys
     }
   }
-  
+
   render() {
     const { onKeyClick } = this.props
     document.addEventListener('keydown', e => {
