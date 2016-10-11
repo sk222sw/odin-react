@@ -15,6 +15,12 @@ export default class Synth extends Component {
       oscillator: {},
       gainNode: {},
       hasntStarted: true,
+      waveForms: [
+        'sine',
+        'square',
+        'sawtooth',
+        'triangle',
+      ],
     };
   }
   
@@ -72,6 +78,18 @@ export default class Synth extends Component {
     )
   }
 
+  renderWaveFormButtons = () => {
+    return (
+      this.state.waveForms.map(waveForm =>
+        <div key={waveForm}>
+          <button onClick={() => this.setWaveForm(waveForm)}>{waveForm}</button>
+        </div>
+      )
+    )
+  }
+
+  setWaveForm = waveForm => this.state.oscillator.type = waveForm
+
   render() {
     return (
       <div>
@@ -82,6 +100,7 @@ export default class Synth extends Component {
         </button>
         <Rcslider max={20000} onChange={this.frequencySlider}/>
         {this.renderKeys()}
+        {this.renderWaveFormButtons()}
       </div>
     );
   }
