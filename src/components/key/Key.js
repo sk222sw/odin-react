@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-require('./key.css')
+import './key.css'
 
 const Key = ({ name }) => (
   <div className="key">
