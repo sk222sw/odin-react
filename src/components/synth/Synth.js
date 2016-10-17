@@ -36,11 +36,16 @@ export default class Synth extends Component {
 
     oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
-    
+    gainNode.gain.value = 0
+
     oscillator.type = 'sine';
     oscillator.frequency.value = 1000;
-    
+    oscillator.start()
     this.setState({oscillator, gainNode, audioCtx})
+  }
+
+  setGain = value => {
+    this.state.gainNode.gain.value = value
   }
 
   playNote = () => {
@@ -50,36 +55,31 @@ export default class Synth extends Component {
     this.state.gainNode.gain.linearRampToValueAtTime(0, currTime + fadeTime);
   }
 
-  toggleMute = () => {
-    if (this.state.hasntStarted) {
-      this.state.oscillator.start()
-      this.setState({hasntStarted: false})
-    }
-
-    const value = this.state.isMuted ? 1 : 0
-
-    this.state.gainNode.gain.value = value
-    this.setState({isMuted: !this.state.isMuted})
-  }
-
   gainSlider = value => {
-    this.state.gainNode.gain.value = value / 100
+    this.setGain(value / 100)
   }
   
   frequencySlider = value => {
-    this.changeFrequency(value)
+    this.keyPress(value)
   }
 
-  changeFrequency = frequency => {
-    this.state.oscillator.frequency.value = frequency
+  keyPress = frequency => {
+    if (this.state.gainNode.gain.value > 0) {
+      this.state.gainNode.gain.cancelScheduledValues(0)
+    }
+    this.setFrequency(frequency) 
     this.playNote()
+  }
+
+  setFrequency = frequency => {
+    this.state.oscillator.frequency.value = frequency
   }
 
   renderKeys = () => {
     return (
       <Keyboard 
-        onKeyClick={this.changeFrequency}
-        keyboardPress={this.changeFrequency}
+        onKeyClick={this.keyPress}
+        keyboardPress={this.keyPress}
       />
     )
   }
@@ -101,9 +101,6 @@ export default class Synth extends Component {
       <div>
         Synth
         <Rcslider onChange={this.gainSlider}/>
-        <button onClick={this.toggleMute}>
-          {this.state.isMuted ? 'Play' : 'Mute'}
-        </button>
         <Rcslider max={20000} onChange={this.frequencySlider}/>
         {this.renderKeys()}
         {this.renderWaveFormButtons()}
