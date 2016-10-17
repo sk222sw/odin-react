@@ -50,9 +50,20 @@ export default class Synth extends Component {
 
   playNote = () => {
     var currTime = this.state.audioCtx.currentTime
-    var fadeTime = 1
-    this.state.gainNode.gain.linearRampToValueAtTime(1, currTime);
-    this.state.gainNode.gain.linearRampToValueAtTime(0, currTime + fadeTime);
+    const time = 0.3
+    const attack = {gain: 1, time: currTime + time}
+    const decay = {gain: 0.5, time: attack.time + time}
+    const sustain = {gain: 1, time: decay.time + time}
+    const release = {gain: 0, time: sustain.time +   time}
+
+    this.rampGain(attack)
+    this.rampGain(decay)
+    // this.rampGain(sustain)
+    this.rampGain(release)
+  }
+
+  rampGain = ({gain, time}) => {
+    this.state.gainNode.gain.linearRampToValueAtTime(gain, time);
   }
 
   gainSlider = value => {
@@ -63,9 +74,13 @@ export default class Synth extends Component {
     this.keyPress(value)
   }
 
+  shouldResetGain = () => this.state.gainNode.gain.value > 0
+  cancelGain = () => this.state.gainNode.gain.cancelScheduledValues(0)
+
+
   keyPress = frequency => {
-    if (this.state.gainNode.gain.value > 0) {
-      this.state.gainNode.gain.cancelScheduledValues(0)
+    if (this.shouldResetGain()) {
+      this.cancelGain()
     }
     this.setFrequency(frequency) 
     this.playNote()
