@@ -11,24 +11,35 @@ export default class Keyboard extends Component {
     }
   }
 
+  componentDidMount() {
+    const { onKeyClick } = this.props
+    const { keys } = this.state
+    
+    window.addEventListener('keydown', e => {
+      if (!keys.some(k => k.keyPress === e.key))
+        return
+      const { hertz } = keys.filter(key => key.keyPress === e.key)[0]
+      onKeyClick(hertz)
+    })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown')
+  }
+
   render() {
     const { onKeyClick } = this.props
-    document.addEventListener('keydown', e => {
-      if (!this.state.keys.some(k => k.keyPress === e.key)) {
-        return
-      } else {
-        const {hertz} = this.state.keys.filter(key => key.keyPress === e.key)[0]
-        this.props.onKeyClick(hertz)
-      }
-    })
+
     return (
-      <div>
-        {this.state.keys.map((key, i) => 
-          <div key={i} className="keys-container">
-            <button onClick={() => this.props.onKeyClick(key.hertz)}>{key.name}</button>
-            <Key key={i} name={key.name} frequency={key.hertz} onClick={onKeyClick} />
-          </div>
-        , this)}
+      <div className="keys-container">
+        {this.state.keys.map((key, i) =>             
+          <Key 
+            key={i} 
+            name={key.name} 
+            frequency={key.hertz} 
+            onClick={onKeyClick} 
+            />
+        )}
       </div>
     );
   }

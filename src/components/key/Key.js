@@ -2,9 +2,11 @@ import React from 'react';
 
 import './key.css'
 
-const Key = ({ name }) => (
-  <div className="key">
+const Key = ({ name, frequency, onClick }) => (
+  <button 
+    onClick={() => onClick(frequency)}
+  >
     {name}
-  </div>
+  </button>
 )
 export default Key
