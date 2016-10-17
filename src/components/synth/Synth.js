@@ -74,14 +74,10 @@ export default class Synth extends Component {
     this.keyPress(value)
   }
 
-  shouldResetGain = () => this.state.gainNode.gain.value > 0
   cancelGain = () => this.state.gainNode.gain.cancelScheduledValues(0)
 
-
   keyPress = frequency => {
-    if (this.shouldResetGain()) {
-      this.cancelGain()
-    }
+    this.cancelGain()
     this.setFrequency(frequency) 
     this.playNote()
   }
