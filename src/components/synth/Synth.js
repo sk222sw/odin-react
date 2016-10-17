@@ -3,7 +3,7 @@ import Rcslider from 'rc-slider'
 
 import Keyboard from '../keyboard/Keyboard'
 
-require('rc-slider/assets/index.css')
+import 'rc-slider/assets/index.css'
 
 export default class Synth extends Component {
   constructor(props) { 
@@ -14,6 +14,7 @@ export default class Synth extends Component {
       frequency: 1000,
       oscillator: {},
       gainNode: {},
+      audioCtx: {},
       hasntStarted: true,
       waveForms: [
         'sine',
@@ -39,7 +40,14 @@ export default class Synth extends Component {
     oscillator.type = 'sine';
     oscillator.frequency.value = 1000;
     
-    this.setState({oscillator, gainNode})
+    this.setState({oscillator, gainNode, audioCtx})
+  }
+
+  playNote = () => {
+    var currTime = this.state.audioCtx.currentTime
+    var fadeTime = 1
+    this.state.gainNode.gain.linearRampToValueAtTime(1, currTime);
+    this.state.gainNode.gain.linearRampToValueAtTime(0, currTime + fadeTime);
   }
 
   toggleMute = () => {
@@ -63,10 +71,8 @@ export default class Synth extends Component {
   }
 
   changeFrequency = frequency => {
-    console.log("changeFrequency")
-    console.log(frequency)
-
     this.state.oscillator.frequency.value = frequency
+    this.playNote()
   }
 
   renderKeys = () => {
