@@ -16,6 +16,7 @@ export default class Synth extends Component {
       gainNode: {},
       audioCtx: {},
       hasntStarted: true,
+      waveForm: 'sine',
       waveForms: [
         'sine',
         'square',
@@ -31,24 +32,36 @@ export default class Synth extends Component {
   
   init = () => {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
-    const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
 
-    oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
     gainNode.gain.value = 0
 
-    oscillator.type = 'sine';
-    oscillator.frequency.value = 1000;
+    this.setState({gainNode, audioCtx})
+    this.createOscillator(audioCtx, gainNode)
+  }
+
+  createOscillator = (audioCtx, gainNode, frequency = 1000) => {
+    const oscillator = audioCtx.createOscillator();
+    oscillator.connect(gainNode);
+
+    gainNode.gain.value = 0
+
+    oscillator.type = this.state.waveForm;
+    oscillator.frequency.value = frequency;
     oscillator.start()
-    this.setState({oscillator, gainNode, audioCtx})
+    this.setState({oscillator})
   }
 
   setGain = value => {
     this.state.gainNode.gain.value = value
   }
 
-  playNote = () => {
+  playNote = frequency => {
+    this.state.oscillator.stop()
+    
+    this.createOscillator(this.state.audioCtx, this.state.gainNode, frequency)
+
     var currTime = this.state.audioCtx.currentTime
     const time = 0.3
     const attack = {gain: 1, time: currTime + time}
@@ -79,7 +92,7 @@ export default class Synth extends Component {
   keyPress = frequency => {
     this.cancelGain()
     this.setFrequency(frequency) 
-    this.playNote()
+    this.playNote(frequency)
   }
 
   setFrequency = frequency => {
@@ -105,7 +118,10 @@ export default class Synth extends Component {
     )
   }
 
-  setWaveForm = waveForm => this.state.oscillator.type = waveForm
+  setWaveForm = waveForm => {
+    this.state.waveForm = waveForm
+    this.state.oscillator.type = waveForm
+  }
 
   render() {
     return (
