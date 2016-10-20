@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Rcslider from 'rc-slider'
 
 import Keyboard from '../keyboard/Keyboard'
+import { keys } from '../../assets/keys.json'
 
 import 'rc-slider/assets/index.css'
 
@@ -26,6 +27,20 @@ export default class Synth extends Component {
     };
   }
   
+  componentWillMount = () => {
+    window.addEventListener('keydown', e => {
+      if (!keys.some(k => k.keyPress === e.key)) return
+      
+      const { hertz } = keys.filter(key => key.keyPress === e.key)[0]
+      this.cancelGain()
+      this.playNote(hertz)
+    })
+  }
+ 
+  componentWillUnmount() {
+    window.removeEventListener('keydown')
+  }
+
   componentDidMount = () => {
     this.init();
   }
@@ -101,8 +116,8 @@ export default class Synth extends Component {
 
   renderKeys = () => {
     return (
-      <Keyboard 
-        onKeyClick={this.keyPress}
+      <Keyboard
+        keys={keys}
         keyboardPress={this.keyPress}
       />
     )
