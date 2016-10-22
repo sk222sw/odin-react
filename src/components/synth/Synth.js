@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Rcslider from 'rc-slider'
+import { connect } from 'react-redux'
+
+import { changeWaveForm, WaveForms } from '../../lib/actions'
 
 import Keyboard from '../keyboard/Keyboard'
-import { keys } from '../../assets/keys.json'
 
 import 'rc-slider/assets/index.css'
 
@@ -30,7 +32,7 @@ export default class Synth extends Component {
   componentWillMount = () => {
     window.addEventListener('keydown', e => {
       if (!keys.some(k => k.keyPress === e.key)) return
-      
+
       const { hertz } = keys.filter(key => key.keyPress === e.key)[0]
       this.cancelGain()
       this.playNote(hertz)

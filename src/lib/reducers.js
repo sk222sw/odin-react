@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import { WaveForms, CHANGE_WAVEFORM } from './actions'
+import { keys } from '../assets/keys.json'
 
 const initialState = {
-  waveForm: WaveForms.SINE
+  waveForm: WaveForms.SINE,
+  keys,
 }
 
 function syntheziser(state = initialState, action) {
