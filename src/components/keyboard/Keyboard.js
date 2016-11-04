@@ -1,15 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import Key from '../key/Key'
 
-const Keyboard = ({ keys, keyboardPress }) => (
+const Keyboard = ({ keys, currentKey, onKeyClick }) => (
   <div className="keys-container">
-    {keys.map((key, i) =>             
+    <h1>
+      Current: {currentKey}
+    </h1>
+    {keys.map((key, i) => 
       <Key 
         key={i} 
         name={key.name} 
-        frequency={key.hertz} 
-        onClick={() => {keyboardPress(key.hertz)}}
+        frequency={key.hertz}
+        onClick={() => onKeyClick(key.name)}
       />
     )}
   </div>

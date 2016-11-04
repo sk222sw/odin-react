@@ -1,30 +1,49 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from 'react'
 
-import Synth from './components/synth/Synth'
+import Synth from './containers/synth/Synth'
 
-const App = ({actions}) => (
-  <div className="App">
+const App = () => (
+  <div>
     <Synth />
   </div>
 )
 
-App.propTypes
-console.log('////////////////');
-console.log(
-  https://github.com/reactjs/redux/blob/master/examples/todomvc/src/containers/App.js
-);
-console.log('////////////////');
+export default App
+
+// const App = ({keys, actions}) => (
+//   <div className="App">
+//     <Synth keys={keys} actions={actions} />
+//   </div>
+// )
 
 // class App extends Component {
+//   constructor(props) {
+//     super(props)
+//     console.log(props)
+//   }
+
 //   render() {
 //     return (
-//       <div className="App">
-//         Hi
-//         <Synth />
+//       <div>
+//         Synth
 //       </div>
 //     );
 //   }
 // }
 
-export default App;
+// App.propTypes = {
+//   actions: PropTypes.object.isRequired,
+// }
+
+// const mapStateToProps = state => ({
+//   keys: state.syntheziser.keys
+// })
+
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators(Actions, dispatch)
+// })
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(App)

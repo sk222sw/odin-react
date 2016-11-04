@@ -4,7 +4,7 @@ import './key.css'
 
 const Key = ({ name, frequency, onClick }) => (
   <button 
-    onClick={() => onClick(frequency)}
+    onClick={() => onClick(name)}
   >
     {name}
   </button>
