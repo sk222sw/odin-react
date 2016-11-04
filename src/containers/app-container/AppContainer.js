@@ -10,8 +10,13 @@ const doSynth = (keys, currentKey) => {
   }
 }
 
-const mapStateToProps = ({syntheziser}) => {
-  return {...syntheziser}
+const mapStateToProps = (state) => {
+  return {
+    currentKey: state.getIn(['syntheziser', 'currentKey']),
+    currentWaveform: state.getIn(['syntheziser', 'currentWaveform']),
+    keys: state.getIn(['syntheziser', 'keys']),
+    waveforms: state.getIn(['syntheziser', 'waveforms'])
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
