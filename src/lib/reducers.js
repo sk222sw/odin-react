@@ -1,18 +1,24 @@
 import { combineReducers } from 'redux'
-import { WaveForms, CHANGE_WAVEFORM, CHANGE_KEY } from './actions'
+import { Waveforms, CHANGE_WAVEFORM, CHANGE_KEY } from './actions'
 import { keys } from '../assets/keys.json'
 
 const initialState = {
-  waveForm: WaveForms.SINE,
+  currentWaveform: Waveforms.SINE,
   currentKey: 'A',
   keys,
+  waveforms: [
+    Waveforms.SINE,
+    Waveforms.SQUARE,
+    Waveforms.SAWTOOTH,
+    Waveforms.TRIANGLE,
+  ],
 }
 
 function syntheziser(state = initialState, action) {
   switch (action.type) {
     case CHANGE_WAVEFORM:
       return Object.assign({}, state, {
-        waveForm: action.waveForm
+        waveform: action.waveform
       })  
     case CHANGE_KEY:
       return Object.assign({}, state, {

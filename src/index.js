@@ -7,7 +7,7 @@ import App from './App'
 import './index.css'
 
 import synthApp from './lib/reducers'
-import { changeWaveForm, WaveForms } from './lib/actions'
+import { changeWaveform, Waveforms } from './lib/actions'
 
 let store = createStore(synthApp)
 
