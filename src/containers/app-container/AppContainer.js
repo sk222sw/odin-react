@@ -21,8 +21,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onKeyClick: key => dispatch(changeKey(key)),
-    onWaveformClick: waveform => dispatch(changeWaveform(waveform)),
+    onKeyClick: payload => dispatch(changeKey(payload)),
+    onWaveformClick: payload => dispatch(changeWaveform(payload)),
   }
 }
 

@@ -12,7 +12,7 @@ import { changeWaveform, Waveforms } from './lib/actions'
 let store = createStore(synthApp)
 
 store.subscribe(() => {
-  console.log(store.getState().syntheziser)
+  console.log(store.getState().toJS().syntheziser)
 })
 
 ReactDOM.render(

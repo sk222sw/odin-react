@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux-immutable'
 import Immutable from 'immutable'
+import { combineReducers } from 'redux-immutable'
 import { Waveforms, CHANGE_WAVEFORM, CHANGE_KEY } from './actions'
 import { keys } from '../assets/keys.json'
 
@@ -18,9 +18,9 @@ const initialState = Immutable.Map({
 function syntheziser(state = initialState, action) {
   switch (action.type) {
     case CHANGE_WAVEFORM:
-      return state.set('waveform', action.waveform)
+      return state.set('currentWaveform', action.payload)
     case CHANGE_KEY:
-      return state.set('currentKey', action.key)
+      return state.set('currentKey', action.payload)
     default:
       return state
   }

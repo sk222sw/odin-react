@@ -1,3 +1,5 @@
+import { createAction } from 'redux-actions'
+
 export const CHANGE_WAVEFORM = 'CHANGE_WAVEFORM'
 export const CHANGE_KEY = 'CHANGE_KEY'
 
@@ -8,10 +10,5 @@ export const Waveforms = {
 	SAWTOOTH: 'sawtooth',
 }
 
-export function changeWaveform(waveform) {
-	return { type: CHANGE_WAVEFORM, waveform }
-}
-
-export function changeKey(key) {
-	return { type: CHANGE_KEY, key }
-}
+export const changeKey = createAction(CHANGE_KEY, payload => payload)
+export const changeWaveform = createAction(CHANGE_WAVEFORM, payload => payload)
