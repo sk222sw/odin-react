@@ -18,9 +18,4 @@ const Keyboard = ({ keys, currentKey, onKeyClick }) => (
   </div>
 )
 
-Keyboard.PropTypes = {
-  keys: PropTypes.objectOf(PropTypes.string).isRequired,
-  keyboardPress: PropTypes.func.isRequired
-}
-
 export default Keyboard

@@ -15,7 +15,6 @@ describe('Key component', () => {
 
   it('should render', () => {
     expect(Component.length).toBeTruthy()
-
     expect(Component.find('button')).toBeTruthy()
   })
 

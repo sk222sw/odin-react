@@ -32,11 +32,14 @@ describe('Keyboard component', () => {
     expect(output.props.className).toBe('keyboard-container')
   })
 
-  it('should render keys', () => {
+  it('should render Key components', () => {
     const { output, props } = setup()
     const [ , keys ] = output.props.children
     keys.forEach((item, i) => {
       expect(item.type).toBe(Key)
+      expect(item.props.name).not.toBeUndefined()
+      expect(item.props.frequency).not.toBeUndefined()
+      expect(item.props.onClick).not.toBeUndefined()
     })
   })
 

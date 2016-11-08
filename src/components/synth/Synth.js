@@ -4,7 +4,7 @@ import Keyboard from '../keyboard/Keyboard'
 import Waveforms from '../waveforms/Waveforms'
 
 const Synth = ({ keys, currentKey, onKeyClick, waveforms, onWaveformClick, currentWaveform }) => (
-  <div>
+  <div className="synth-container">
     <Keyboard keys={keys} currentKey={currentKey} onKeyClick={onKeyClick} />
     <Waveforms 
       waveforms={waveforms}
