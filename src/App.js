@@ -2,9 +2,9 @@ import React from 'react'
 
 import AppContainer from './containers/app-container/AppContainer'
 
-const App = () => (
+export const App = () => (
   <div>
-    <AppContainer />
+    <NotUsed />
   </div>
 )
 

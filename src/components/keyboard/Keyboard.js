@@ -3,9 +3,9 @@ import React, { PropTypes } from 'react';
 import Key from '../key/Key'
 
 const Keyboard = ({ keys, currentKey, onKeyClick }) => (
-  <div className="keys-container">
+  <div className="keyboard-container">
     <h1>
-      Current: {currentKey}
+      {currentKey}
     </h1>
     {keys.map((key, i) => 
       <Key 

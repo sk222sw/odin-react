@@ -3,7 +3,7 @@ import { combineReducers } from 'redux-immutable'
 import { Waveforms, CHANGE_WAVEFORM, CHANGE_KEY } from './actions'
 import { keys } from '../assets/keys.json'
 
-const initialState = Immutable.Map({
+export const initialState = Immutable.Map({
   currentWaveform: Waveforms.SINE,
   currentKey: 'A',
   keys,

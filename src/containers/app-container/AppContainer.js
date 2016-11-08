@@ -26,7 +26,9 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const AppContainer = connect(
+// only use this export for tests 
+// http://redux.js.org/docs/recipes/WritingTests.html#connected-components
+export const AppContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Synth)

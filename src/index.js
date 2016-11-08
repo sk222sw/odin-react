@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import AppContainer from './containers/app-container/AppContainer'
 
 import App from './App'
 import './index.css'
@@ -17,7 +18,7 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>,
   document.getElementById('root')
 );
