@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import Synth from '../../components/synth/Synth'
 import Waveforms from '../../components/waveforms/Waveforms'
-import { changeWaveform, Waveforms, changeKey } from '../../lib/actions'
+import { changeWaveform, changeKey } from '../../lib/actions'
 
 const doSynth = (keys, currentKey) => {
   switch (keys) {
