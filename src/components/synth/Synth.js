@@ -1,9 +1,19 @@
+// @flow
+
 import React, { PropTypes } from 'react';
 
 import Keyboard from '../keyboard/Keyboard'
 import Waveforms from '../waveforms/Waveforms'
 
-const Synth = ({ keys, currentKey, onKeyClick, waveforms, onWaveformClick, currentWaveform }) => (
+type params = { 
+  keys: any[], 
+  currentKey: string, 
+  onKeyClick: any, 
+  waveforms: any[], 
+  onWaveformClick: any,
+  currentWaveform: string
+}
+const Synth = ({ keys, currentKey, onKeyClick, waveforms, onWaveformClick, currentWaveform }: params) => (
   <div className="synth-container">
     <Keyboard keys={keys} currentKey={currentKey} onKeyClick={onKeyClick} />
     <Waveforms 

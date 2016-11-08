@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "enzyme": "^2.5.1",
+    "flow-bin": "^0.34.0",
     "react-addons-test-utils": "^15.3.2",
     "react-scripts": "0.6.1",
     "react-test-renderer": "^15.3.2",
@@ -23,6 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "flow": "flow; test $? -eq 0 -o $? -eq 2"
   }
 }

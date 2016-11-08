@@ -1,8 +1,11 @@
+// @flow
+
 import React, { PropTypes } from 'react';
 
 import Key from '../key/Key'
 
-const Keyboard = ({ keys, currentKey, onKeyClick }) => (
+type params = { keys: Array<any>, currentKey: string, onKeyClick: any }
+const Keyboard = ({ keys, currentKey, onKeyClick }: params) => (
   <div className="keyboard-container">
     <h1>
       {currentKey}

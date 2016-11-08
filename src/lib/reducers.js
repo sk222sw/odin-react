@@ -1,4 +1,6 @@
-import Immutable from 'immutable'
+// @flow
+
+import * as Immutable from 'immutable'
 import { combineReducers } from 'redux-immutable'
 import { Waveforms, CHANGE_WAVEFORM, CHANGE_KEY } from './actions'
 import { keys } from '../assets/keys.json'
