@@ -3,7 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-eslint": "^7.1.0",
     "enzyme": "^2.5.1",
+    "eslint": "^3.10.0",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-flowtype": "^2.25.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "2.2.3",
+    "eslint-plugin-react": "^6.6.0",
     "flow-bin": "^0.34.0",
     "react-addons-test-utils": "^15.3.2",
     "react-scripts": "0.6.1",
@@ -26,5 +33,21 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "plugins": [
+      "import"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "never"
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ]
+    }
   }
 }

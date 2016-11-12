@@ -28,6 +28,6 @@ function syntheziser(state = initialState, action) {
   }
 }
 
-const synthApp = combineReducers({syntheziser})
+const synthApp = combineReducers({ syntheziser })
 
 export default synthApp

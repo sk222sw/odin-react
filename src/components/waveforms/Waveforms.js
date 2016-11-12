@@ -12,7 +12,7 @@ export const Waveforms = ({ waveforms, onWaveformClick, currentWaveform }: props
         {waveform}
       </button>
     )}
-    <div>
+    <div className="current-waveform">
       {currentWaveform}
     </div>
   </div>
