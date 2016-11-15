@@ -7,7 +7,13 @@ import { keys } from '../assets/keys.json'
 
 export const initialState = Immutable.Map({
   currentWaveform: Waveforms.SINE,
-  currentKey: 'A',
+  currentKey: {
+    name: 'A',
+    frequency: '880',
+    keyPress: 'z',
+  },
+  frequency: 1000,
+  gain: 0,
   keys,
   waveforms: [
     Waveforms.SINE,

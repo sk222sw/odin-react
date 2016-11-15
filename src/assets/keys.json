@@ -1,12 +1,12 @@
 {
     "keys": [
-        {"keyPress": "z", "name": "A", "hertz": "880"},
-        {"keyPress": "x", "name": "B", "hertz": "987.767"},
-        {"keyPress": "c", "name": "C", "hertz": "1046.50"},
-        {"keyPress": "v", "name": "D", "hertz": "1174.66"},
-        {"keyPress": "b", "name": "E", "hertz": "1318.51"},
-        {"keyPress": "n", "name": "F", "hertz": "1396.91"},
-        {"keyPress": "m", "name": "G", "hertz": "1567.98"},
-        {"keyPress": "a", "name": "A2", "hertz": "1760"}
+        {"keyPress": "z", "name": "A", "frequency": "880"},
+        {"keyPress": "x", "name": "B", "frequency": "987.767"},
+        {"keyPress": "c", "name": "C", "frequency": "1046.50"},
+        {"keyPress": "v", "name": "D", "frequency": "1174.66"},
+        {"keyPress": "b", "name": "E", "frequency": "1318.51"},
+        {"keyPress": "n", "name": "F", "frequency": "1396.91"},
+        {"keyPress": "m", "name": "G", "frequency": "1567.98"},
+        {"keyPress": "a", "name": "A2", "frequency": "1760"}
     ]
 }
