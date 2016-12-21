@@ -14,6 +14,10 @@ type params = {
   waveforms: any[],
   onWaveformClick: any,
   currentWaveform: string,
+  pressedKeys: string[],
+  addKey: any,
+  removeKey: any,
+  removeAllKeys: any,
 }
 
 class Synth extends React.Component {
@@ -32,23 +36,38 @@ class Synth extends React.Component {
     })
   }
 
-  componentWillUnmount() {
-    global.window.removeEventListener('keydown')
+  componentWillMount() {
+    global.window.addEventListener('keydown', this.addKey, false)
+    global.window.addEventListener('keyup', this.removeKey, false)
+    global.window.addEventListener('blur', this.removeAllKeys, false)
   }
+
+  componentWillUnmount() {
+    global.window.removeEventListener('keydown', this.addKey, false)
+    global.window.removeEventListener('keyup', this.removeKey, false)
+    global.window.removeEventListener('blur', this.removeAllKeys, false)
+  }
+
+  find = (list: string[], item: string): boolean =>
+    list.some(k => k === item)
+
+  canFindKey = (key: string): boolean =>
+    this.find(this.props.pressedKeys, key)
+
+  addKey = ({ key }: {key: string}) =>
+    !this.canFindKey(key) ? this.props.addKey(key) : null
+
+  removeKey = ({ key }: {key: string}) =>
+    this.props.removeKey(key)
+
+  removeAllKeys = () =>
+    this.props.removeAllKeys()
 
   waw: Waw
 
   playNote = (key: keyType) => {
     this.waw.playNote(key.frequency, this.props.currentWaveform)
   }
-
-  getRandomKey = (): keyType => {
-    const r = this.getRandomInt(0, this.props.keys.length - 1)
-    return this.props.keys[r]
-  }
-
-  getRandomInt = (min: number, max: number): number =>
-    Math.floor(Math.random() * ((max - min) + 1)) + min
 
   render() {
     return (
@@ -64,6 +83,7 @@ class Synth extends React.Component {
           onWaveformClick={this.props.onWaveformClick}
         />
         <button onClick={() => this.playNote(this.props.currentKey)}>note</button>
+        {this.props.pressedKeys.map((k, i) => <span key={i}>{k}</span>)}
       </div>
     )
   }
