@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 type props = { waveforms: any[], onWaveformClick: any, currentWaveform: string }
 export const Waveforms = ({ waveforms, onWaveformClick, currentWaveform }: props) => (
@@ -8,7 +8,8 @@ export const Waveforms = ({ waveforms, onWaveformClick, currentWaveform }: props
     {waveforms.map((waveform, i) =>
       <button
         key={i}
-        onClick={() => onWaveformClick(waveform)}>
+        onClick={() => onWaveformClick(waveform)}
+      >
         {waveform}
       </button>
     )}

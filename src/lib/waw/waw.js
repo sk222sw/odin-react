@@ -1,9 +1,7 @@
 // @flow
 
 import { List } from 'immutable'
-
-type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle' | 'custom'
-type Oscillator = {key: string, frequency: number, waveform: OscillatorType}
+import { Oscillator } from '../../lib/types/types'
 
 class Waw {
   audioCtx: AudioContext
@@ -12,10 +10,8 @@ class Waw {
   oscillators
 
   constructor() {
-    // this.audioCtx = new (window.AudioContext || window.WebkitAudioContext)()
     this.audioCtx = new AudioContext()
     this.oscillators = List()
-    // this.audioCtx = new (global.window.WebkitAudioContext)()
   }
 
   init(): void {

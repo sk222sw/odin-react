@@ -2,14 +2,11 @@
 
 import React from 'react'
 
-import Keyboard from '../keyboard/Keyboard'
 import { Waveforms } from '../waveforms/Waveforms'
 import Waw from '../../lib/waw/waw'
-import { keyType } from '../../lib/types/types'
 
 type params = {
   keys: any[],
-  currentKey: keyType,
   onKeyClick: any,
   waveforms: any[],
   onWaveformClick: any,
@@ -40,6 +37,8 @@ class Synth extends React.Component {
     global.window.removeEventListener('blur', this.removeAllKeys, false)
   }
 
+  waw: Waw
+
   find = (list: string[], item: string): boolean =>
     list.some(k => k === item)
 
@@ -69,27 +68,14 @@ class Synth extends React.Component {
   removeAllKeys = () =>
     this.props.removeAllKeys()
 
-  waw: Waw
-
-  playNote = (key: keyType) => {
-    this.waw.playNote(key.frequency, this.props.currentWaveform)
-  }
-
   render() {
     return (
       <div className="synth-container">
-        <Keyboard
-          keys={this.props.keys}
-          currentKey={this.props.currentKey}
-          onKeyClick={this.props.onKeyClick}
-        />
         <Waveforms
           waveforms={this.props.waveforms}
           currentWaveform={this.props.currentWaveform}
           onWaveformClick={this.props.onWaveformClick}
         />
-        <button onClick={() => this.playNote(this.props.currentKey)}>note</button>
-        {this.props.pressedKeys.map((k, i) => <span key={i}>{k}</span>)}
       </div>
     )
   }

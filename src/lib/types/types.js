@@ -3,3 +3,12 @@ export type keyType = {
   keypress: string,
   name: string,
 }
+
+export type OscillatorTypes =
+  'sine' | 'square' | 'sawtooth' | 'triangle' | 'custom'
+
+export type Oscillator = {
+  key: string,
+  frequency: number,
+  waveform: OscillatorType,
+}
