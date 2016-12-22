@@ -1,15 +1,14 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import sinon from 'sinon'
+import { shallow } from 'enzyme'
 import Key from './Key'
 
 describe('Key component', () => {
   let Component
-  let onClick = jest.fn()
+  const onClick = jest.fn()
 
   beforeEach(() => {
     Component = shallow(
-      <Key name='A' onClick={onClick} />
+      <Key name="A" onClick={onClick} />
     )
   })
 
@@ -19,7 +18,6 @@ describe('Key component', () => {
   })
 
   it('should call onClick when clicked', () => {
-    const buttonClick = sinon.spy()
     Component.find('button').simulate('click')
     expect(onClick).toHaveBeenCalled()
   })

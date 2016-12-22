@@ -1,13 +1,25 @@
-import React from 'react';
+import React from 'react'
 
 import './envelope.css'
 
-const Envelope = () => (
+type params = { envelope: any }
+
+const Envelope = ({ envelope }: params) => (
   <div className="envelope">
-    <input className="envelope-input" type="number" name="attack" />
-    <input className="envelope-input" type="number" name="decay" />
-    <input className="envelope-input" type="number" name="sustain" />
-    <input className="envelope-input" type="number" name="release" />
+    <form>
+      <div>
+        <input className="envelope-input" type="text" name="attack" value={envelope.a} />
+      </div>
+      <div>
+        <input className="envelope-input" type="text" name="decay" value={envelope.d} />
+      </div>
+      <div>
+        <input className="envelope-input" type="text" name="sustain" value={envelope.s} />
+      </div>
+      <div>
+        <input className="envelope-input" type="text" name="release" value={envelope.r} />
+      </div>
+    </form>
   </div>
 )
 
