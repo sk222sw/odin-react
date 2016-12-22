@@ -1,24 +1,13 @@
-// @flow
+import App from './app'
+import routes from './routes'
+import Layout from './layout'
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import { AppContainer } from './containers/app-container/AppContainer'
-import './index.css'
-import synthApp from './lib/reducers'
+export const reducers = {
+  title: state => state
+}
 
-const store = createStore(synthApp)
+export const initialState = {
+  title: 'yodin'
+}
 
-store.subscribe(() => {
-  console.log(store.getState().toJS().syntheziser)
-})
-
-ReactDOM.render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  global.window.document.getElementById('root')
-)
-
-// unsubscibe()
+App({ reducers, initialState, Layout, routes }).render()

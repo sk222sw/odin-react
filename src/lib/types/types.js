@@ -10,5 +10,5 @@ export type OscillatorTypes =
 export type Oscillator = {
   key: string,
   frequency: number,
-  waveform: OscillatorType,
+  waveform: OscillatorTypes,
 }

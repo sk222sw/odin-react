@@ -1,0 +1,6 @@
+// Overwrite settings by placing them into your settings file.
+// See http://go.microsoft.com/fwlink/?LinkId=808995 for the most commonly used settings.
+{
+  "eslint.autoFixOnSave": true,
+  "javascript.validate.enable": false
+}
