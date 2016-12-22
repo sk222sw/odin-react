@@ -1,28 +1,52 @@
 // @flow
 
-type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle' | 'custom'
+import { List } from 'immutable'
 
-export default class Waw {
+type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle' | 'custom'
+type Oscillator = {key: string, frequency: number, waveform: OscillatorType}
+
+class Waw {
   audioCtx: AudioContext
   gainNode: GainNode
   oscillator: OscillatorNode
+  oscillators
+
   constructor() {
-    this.audioCtx = new (global.window.AudioContext || global.window.webkitAudioContext)()
+    // this.audioCtx = new (window.AudioContext || window.WebkitAudioContext)()
+    this.audioCtx = new AudioContext()
+    this.oscillators = List()
+    // this.audioCtx = new (global.window.WebkitAudioContext)()
   }
 
   init(): void {
     this.gainNode = this.audioCtx.createGain()
-    this.gainNode.gain.value = 0.5
+    this.gainNode.gain.value = 0.2
   }
 
-  createNewOscillator = (frequency: number, waveform: OscillatorType): OscillatorNode => {
+  createNewOscillator = ({ key, frequency, waveform }: Oscillator): OscillatorNode => {
     const oscillator = this.audioCtx.createOscillator()
-    this.gainNode = this.audioCtx.createGain()
+
+    // should a new gain node be created here?
     oscillator.connect(this.gainNode)
     this.gainNode.connect(this.audioCtx.destination)
+
     oscillator.type = waveform
     oscillator.frequency.value = frequency
+    const oscillatorItem = { key, oscillator }
+    this.oscillators = this.oscillators.push(oscillatorItem)
+
     return oscillator
+  }
+
+  deleteOscillator = (key: string): void => {
+    const index = this.oscillators.findIndex(osc => osc.key === key)
+
+    if (index > -1) {
+      const oscillator = this.oscillators.get(index)
+
+      oscillator.oscillator.stop()
+      this.oscillators = this.oscillators.delete(index)
+    }
   }
 
   playNote = (frequency: number, waveform: string) => {
@@ -49,3 +73,5 @@ export default class Waw {
     this.gainNode.gain.linearRampToValueAtTime(gain, time)
   }
 }
+
+module.exports = Waw

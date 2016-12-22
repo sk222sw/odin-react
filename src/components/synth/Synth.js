@@ -26,25 +26,17 @@ class Synth extends React.Component {
 
     this.waw = new Waw()
     this.waw.init()
-
-    global.window.addEventListener('keydown', (event) => {
-      if (!this.props.keys.some(pressedKey => pressedKey.keyPress === event.key)) { return }
-      const key = this.props.keys.filter(k => k.keyPress === event.key)[0]
-
-      this.props.onKeyClick(key)
-      this.playNote(this.props.currentKey, this.props.currentWaveform)
-    })
   }
 
   componentWillMount() {
-    global.window.addEventListener('keydown', this.addKey, false)
-    global.window.addEventListener('keyup', this.removeKey, false)
+    global.window.addEventListener('keydown', this.handleKeyDown, false)
+    global.window.addEventListener('keyup', this.handleKeyUp, false)
     global.window.addEventListener('blur', this.removeAllKeys, false)
   }
 
   componentWillUnmount() {
-    global.window.removeEventListener('keydown', this.addKey, false)
-    global.window.removeEventListener('keyup', this.removeKey, false)
+    global.window.removeEventListener('keydown', this.handleKeyDown, false)
+    global.window.removeEventListener('keyup', this.handleKeyUp, false)
     global.window.removeEventListener('blur', this.removeAllKeys, false)
   }
 
@@ -54,11 +46,25 @@ class Synth extends React.Component {
   canFindKey = (key: string): boolean =>
     this.find(this.props.pressedKeys, key)
 
-  addKey = ({ key }: {key: string}) =>
-    !this.canFindKey(key) ? this.props.addKey(key) : null
+  handleKeyDown = ({ key }: {key: string}) => {
+    if (this.canFindKey(key)) return
+    if (!this.props.keys.some(pressedKey => pressedKey.keyPress === key)) return
+    const { frequency } = this.props.keys.filter(k => k.keyPress === key)[0]
 
-  removeKey = ({ key }: {key: string}) =>
+    const oscillator = this.waw.createNewOscillator({
+      key,
+      frequency,
+      waveform: this.props.currentWaveform,
+    })
+
+    oscillator.start()
+    this.props.addKey(key)
+  }
+
+  handleKeyUp = ({ key }: {key: string}) => {
+    this.waw.deleteOscillator(key)
     this.props.removeKey(key)
+  }
 
   removeAllKeys = () =>
     this.props.removeAllKeys()
