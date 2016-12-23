@@ -31,3 +31,4 @@ bower_components
 .node_repl_history
 
 karma-*
+.com.google.Chrome.*

@@ -3,6 +3,8 @@
 import React from 'react'
 
 import Waw from '../../lib/waw/waw'
+import { Waveforms } from '../waveforms/Waveforms'
+import { find } from '../../lib/helpers'
 
 type propTypes = {
   keys: any[],
@@ -40,10 +42,8 @@ class Synth extends React.Component {
   props: propTypes
   waw: Waw
 
-  find = (list: string[], item: string): boolean => list.some(k => k === item)
-
   canFindKey = (key: string): boolean =>
-    this.find(this.props.pressedKeys, key)
+    find(this.props.pressedKeys, key)
 
   handleKeyDown = ({ key }: {key: string}) => {
     if (this.canFindKey(key)) return
@@ -73,7 +73,14 @@ class Synth extends React.Component {
   render() {
     return (
       <div className="synth-container">
-        I'm a Star Wars
+        <div className="ralph">
+          I'm a Star Wars
+        </div>
+        <Waveforms
+          waveforms={this.props.waveforms}
+          currentWaveform={this.props.currentWaveform}
+          onWaveformClick={this.props.onWaveformClick}
+        />
       </div>
     )
   }
