@@ -15,11 +15,6 @@ chai.use(chaiEnzyme());
 
 describe('<Synth />', () => {
 
-  it('renders', () => {
-    const wrapper = shallow(<Synth />);
-    expect(wrapper.find('.ralph').text()).to.equal('I\'m a Star Wars');
-  });
-
   it('should render Waveform component', function() {
     const wrapper = mount(<Synth waveforms={[]}/>);
     expect(wrapper.find(Waveforms)).to.have.length(1)

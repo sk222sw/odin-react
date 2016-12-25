@@ -56,7 +56,6 @@ class Synth extends React.Component {
       waveform: this.props.currentWaveform,
     })
 
-    oscillator.start()
     this.props.addKey(key)
   }
 
@@ -73,9 +72,6 @@ class Synth extends React.Component {
   render() {
     return (
       <div className="synth-container">
-        <div className="ralph">
-          I'm a Star Wars
-        </div>
         <Waveforms
           waveforms={this.props.waveforms}
           currentWaveform={this.props.currentWaveform}
