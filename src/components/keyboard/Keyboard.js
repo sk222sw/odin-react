@@ -3,9 +3,9 @@
 import React from 'react'
 
 import Key from '../key/Key'
-import keyType from '../../lib/types/types'
+import KeyType from '../../lib/types/types'
 
-type params = { keys: Array<any>, currentKey: keyType, onKeyClick: any }
+type params = { keys: Array<any>, currentKey: KeyType, onKeyClick: any }
 const Keyboard = ({ keys, currentKey, onKeyClick }: params) => (
   <div className="keyboard-container">
     <h1>

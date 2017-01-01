@@ -1,4 +1,4 @@
-export type keyType = {
+export type KeyType = {
   frequency: number,
   keypress: string,
   name: string,
