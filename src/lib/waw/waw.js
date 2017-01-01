@@ -16,32 +16,45 @@ class Waw {
     this.oscillators = List()
   }
 
-  init(): void {
-    this.gainNode = this.audioCtx.createGain()
-    this.gainNode.gain.value = 0.2
-  }
+  playNote = ({ key, frequency, waveform }: Oscillator): OscillatorNode => {
+    const oscillator = this.createOscillator({ key, frequency, waveform })
+    const gainNode = this.createGain(oscillator)
 
-  createNewOscillator = ({ key, frequency, waveform }: Oscillator): OscillatorNode => {
-    const oscillator = this.audioCtx.createOscillator()
-
-    const gainNode = this.audioCtx.createGain()
     oscillator.connect(gainNode)
     gainNode.connect(this.audioCtx.destination)
-    gainNode.gain.value = 0
 
-    oscillator.type = waveform
-    oscillator.frequency.value = frequency
-    const oscillatorItem = { key, oscillator, gainNode }
+    const oscillatorItem: OscillatorItem = { key, oscillator, gainNode }
     this.oscillators = this.oscillators.push(oscillatorItem)
 
     oscillator.start()
+
+    this.envelopeStuff(oscillatorItem)
+
+    return oscillator
+  }
+
+  envelopeStuff = (oscillatorItem: OscillatorItem) => {
     const currTime = this.audioCtx.currentTime
     const time = 0.3
-    const attack = { gainNode, gain: 0.5, time: currTime + time }
-    const decay = { gainNode, gain: 0.5, time: attack.time + time }
+    const attack = { oscillatorItem, gain: 0.5, time: currTime + time }
+    const decay = { oscillatorItem, gain: 0.5, time: attack.time + time }
 
     this.rampGain(attack)
     this.rampGain(decay)
+  }
+
+  createGain = (): GainNode => {
+    const gainNode = this.audioCtx.createGain()
+    gainNode.gain.value = 0
+
+    return gainNode
+  }
+
+  createOscillator = ({ frequency, waveform }: Oscillator): OscillatorNode => {
+    const oscillator = this.audioCtx.createOscillator()
+    oscillator.type = waveform
+    oscillator.frequency.value = frequency
+
     return oscillator
   }
 
@@ -49,9 +62,11 @@ class Waw {
     const index = this.oscillators.findIndex(osc => osc.key === key)
 
     if (index > -1) {
-      const { oscillator } = this.oscillators.get(index)
-      oscillator.stop()
-      const release = { gainNode: oscillator.gainNode, gain: 0, time: this.audioCtx.currentTime + 0.3 }
+      const oscillatorItem = this.oscillators.get(index)
+      const time = this.audioCtx.currentTime + 0.7
+      const release = { oscillatorItem, gain: 0, time }
+      oscillatorItem.oscillator.stop(time)
+      this.rampGain(release)
       this.oscillators = this.oscillators.delete(index)
     }
   }
@@ -60,8 +75,13 @@ class Waw {
     this.oscillators.forEach(o => o.oscillator.stop())
   }
 
-  rampGain = ({ gainNode, gain, time }: {gainNode: any, gain: number, time: number}) => {
-    gainNode.gain.linearRampToValueAtTime(gain, time)
+  oscillatorDidntStop(item: OscillatorItem): boolean {
+    const is = this.oscillators.findIndex(o => o.key === item.key)
+    return is > -1
+  }
+
+  rampGain = ({ oscillatorItem, gain, time }: {oscillatorItem: OscillatorItem, gain: number, time: number}) => {
+    oscillatorItem.gainNode.gain.linearRampToValueAtTime(gain, time)
   }
 }
 
