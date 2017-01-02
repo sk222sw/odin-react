@@ -3,21 +3,29 @@ import App from './app'
 import routes from './routes'
 import Layout from './layout'
 
-import { Waveforms, CHANGE_WAVEFORM, CHANGE_KEY, ADD_KEY, REMOVE_KEY, REMOVE_ALL_KEYS } from './lib/constants'
+import * as C from './lib/constants'
 import { keys } from './assets/keys.json'
 
-export default function synthesizer(state = initialState, action) {
-  switch (action.type) {
-    case CHANGE_WAVEFORM:
-      return state.set('currentWaveform', action.payload)
-    case CHANGE_KEY:
-      return state.set('currentKey', action.payload)
-    case ADD_KEY:
-      return state.update('pressedKeys', p => p.push(action.payload))
-    case REMOVE_KEY:
-      return state.update('pressedKeys', p => p.filter(k => k !== action.payload))
-    case REMOVE_ALL_KEYS:
+export default function synthesizer(state = initialState, {type, payload}) {
+  switch (type) {
+    case C.CHANGE_WAVEFORM:
+      return state.set('currentWaveform', payload)
+    case C.CHANGE_KEY:
+      return state.set('currentKey', payload)
+    case C.ADD_KEY:
+      return state.update('pressedKeys', p => p.push(payload))
+    case C.REMOVE_KEY:
+      return state.update('pressedKeys', p => p.filter(k => k !== payload))
+    case C.REMOVE_ALL_KEYS:
       return state.update('pressedKeys', p => p.clear())
+    case C.CHANGE_ATTACK:
+      return state.setIn(['envelope', 'a'], payload)
+    case C.CHANGE_DECAY:
+      return state.setIn(['envelope', 'd'], payload)
+    case C.CHANGE_SUSTAIN:
+      return state.setIn(['envelope', 's'], payload)
+    case C.CHANGE_RELEASE:
+      return state.setIn(['envelope', 'r'], payload)
     default:
       return state
   }
@@ -29,15 +37,21 @@ export const reducers = {
 
 export const initialState = {
   synthesizer: Immutable.Map({
-    currentWaveform: Waveforms.SINE,
+    currentWaveform: C.Waveforms.SINE,
     pressedKeys: Immutable.List(),
     waveforms: [
-      Waveforms.SINE,
-      Waveforms.SQUARE,
-      Waveforms.SAWTOOTH,
-      Waveforms.TRIANGLE,
+      C.Waveforms.SINE,
+      C.Waveforms.SQUARE,
+      C.Waveforms.SAWTOOTH,
+      C.Waveforms.TRIANGLE,
     ],
     keys,
+    envelope: Immutable.Map({
+      a: 0,
+      d: 0,
+      s: 0,
+      r: 0,
+    }),
   })
 }
 

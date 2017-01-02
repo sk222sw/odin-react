@@ -4,6 +4,7 @@ import React from 'react'
 
 import { Waveforms } from '../waveforms/Waveforms'
 import ComputerKeyboardEnhancer from '../computer-keyboard'
+import Envelope from '../envelope/Envelope'
 
 class Synth extends React.Component {
   constructor(props) {
@@ -18,6 +19,13 @@ class Synth extends React.Component {
         currentWaveform={this.props.currentWaveform}
         onWaveformClick={this.props.onWaveformClick}
       />
+      {this.props.envelope && <Envelope
+        envelope={this.props.envelope.toJS()}
+        changeAttack={this.props.changeAttack}
+        changeDecay={this.props.changeDecay}
+        changeSustain={this.props.changeSustain}
+        changeRelease={this.props.changeRelease}
+      />}
     </div>)
   }
 }
