@@ -20,7 +20,7 @@ class Synth extends React.Component {
         onWaveformClick={this.props.onWaveformClick}
       />
       {this.props.envelope && <Envelope
-        envelope={this.props.envelope.toJS()}
+        envelope={this.props.envelope}
         changeAttack={this.props.changeAttack}
         changeDecay={this.props.changeDecay}
         changeSustain={this.props.changeSustain}
