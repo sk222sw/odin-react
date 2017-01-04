@@ -1,9 +1,9 @@
 // @flow
 
 import { List } from 'immutable'
-import { Oscillator } from '../../lib/types/types'
+import { Oscillator, EnvelopeType } from '../../lib/types/types'
 
-type OscillatorItem = { key: string, oscillator: OscillatorNode, gainNode: GainNode }
+type OscillatorItem = { key: string, oscillator: OscillatorNode, gainNode: GainNode, envelope: EnvelopeType }
 
 class Waw {
   audioCtx: AudioContext
@@ -16,14 +16,14 @@ class Waw {
     this.oscillators = List()
   }
 
-  playNote = ({ key, frequency, waveform }: Oscillator): OscillatorNode => {
+  playNote = ({ envelope, key, frequency, waveform }: Oscillator): OscillatorNode => {
     const oscillator = this.createOscillator({ key, frequency, waveform })
     const gainNode = this.createGain(oscillator)
 
     oscillator.connect(gainNode)
     gainNode.connect(this.audioCtx.destination)
 
-    const oscillatorItem: OscillatorItem = { key, oscillator, gainNode }
+    const oscillatorItem: OscillatorItem = { key, oscillator, gainNode, envelope }
     this.oscillators = this.oscillators.push(oscillatorItem)
 
     oscillator.start()
@@ -35,9 +35,11 @@ class Waw {
 
   envelopeStuff = (oscillatorItem: OscillatorItem) => {
     const currTime = this.audioCtx.currentTime
+    const { envelope } = oscillatorItem
+
     const time = 0.3
-    const attack = { oscillatorItem, gain: 0.5, time: currTime + time }
-    const decay = { oscillatorItem, gain: 0.5, time: attack.time + time }
+    const attack = { oscillatorItem, gain: 0.3, time: currTime + +envelope.a }
+    const decay = { oscillatorItem, gain: 0.1, time: attack.time + time }
 
     this.rampGain(attack)
     this.rampGain(decay)

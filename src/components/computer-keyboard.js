@@ -2,9 +2,10 @@
 
 import Waw from '../lib/waw/waw'
 import { find } from '../lib/helpers'
-import { KeyType } from '../lib/types/types'
+import { KeyType, EnvelopeType } from '../lib/types/types'
 
 type propTypes = {
+  envelope: EnvelopeType,
   keys: any[],
   onKeyClick: any,
   waveforms: any[],
@@ -58,6 +59,7 @@ function ComputerKeyboardEnhancer(WrappedComponent) {
         key,
         frequency,
         waveform: this.props.currentWaveform,
+        envelope: this.props.envelope,
       })
 
       this.props.addKey(key)
