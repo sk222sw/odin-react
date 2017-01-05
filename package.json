@@ -55,7 +55,7 @@
     "redux-immutable": "3.0.6",
     "redux-logger": "2.6.1",
     "redux-slider-monitor": "1.0.7",
-    "simple-spy": "^2.1.0",
+    "spy": "^1.0.0",
     "styled-components": "^1.2.1"
   },
   "eslintConfig": {

@@ -44,7 +44,7 @@ const EnvelopeItem = ({
         value={value}
         onChange={e => onChange(e.target.value)}
       />
-        <EnvelopeSlider value={value * 100 || 0} onChange={v => onChange(v / 100)} />
+      <EnvelopeSlider value={value * 100 || 0} onChange={v => onChange(v / 100)} />
     </SliderContainer>
   </div>
 )
