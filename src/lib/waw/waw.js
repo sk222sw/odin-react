@@ -10,10 +10,12 @@ class Waw {
   gainNode: GainNode
   oscillator: OscillatorNode
   oscillators: any
+  volume: number
 
   constructor() {
     this.audioCtx = new AudioContext()
     this.oscillators = List()
+    this.volume = 0.4
   }
 
   playNote = ({ envelope, key, frequency, waveform }: Oscillator): OscillatorNode => {
@@ -38,8 +40,8 @@ class Waw {
     const { envelope } = oscillatorItem
 
     const time = 0.3
-    const attack = { oscillatorItem, gain: 0.3, time: currTime + +envelope.a }
-    const decay = { oscillatorItem, gain: 0.1, time: attack.time + time }
+    const attack = { oscillatorItem, gain: this.volume, time: currTime + +envelope.a }
+    const decay = { oscillatorItem, gain: 0.1, time: attack.time + +envelope.d }
 
     this.rampGain(attack)
     this.rampGain(decay)
@@ -65,7 +67,8 @@ class Waw {
 
     if (index > -1) {
       const oscillatorItem = this.oscillators.get(index)
-      const time = this.audioCtx.currentTime + 0.7
+      const releaseTime = oscillatorItem.envelope.r
+      const time = this.audioCtx.currentTime + +releaseTime
       const release = { oscillatorItem, gain: 0, time }
       oscillatorItem.oscillator.stop(time)
       this.rampGain(release)
