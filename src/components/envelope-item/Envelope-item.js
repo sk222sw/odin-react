@@ -26,12 +26,14 @@ type params = {
   value: number,
   onChange: any,
   name: string,
+  max: number,
 }
 
 const EnvelopeItem = ({
   value,
   onChange,
   name,
+  max,
 }: params) => (
   <div className="envelope-item">
     <SliderContainer>
@@ -44,7 +46,7 @@ const EnvelopeItem = ({
         value={value}
         onChange={e => onChange(e.target.value)}
       />
-      <EnvelopeSlider value={value * 100 || 0} onChange={v => onChange(v / 100)} />
+      <EnvelopeSlider step={0.01} value={value || 0} max={max} onChange={onChange} />
     </SliderContainer>
   </div>
 )

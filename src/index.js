@@ -47,10 +47,10 @@ export const initialState = {
     ],
     keys,
     envelope: Immutable.Map({
-      a: 0.3,
+      a: 0.15,
       d: 0.4,
       s: 0.7,
-      r: 0.7,
+      r: 0.2,
     }),
   }),
 }
