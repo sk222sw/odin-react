@@ -32,7 +32,7 @@ export default function synthesizer(state = initialState, {type, payload}) {
 }
 
 export const reducers = {
-  synthesizer
+  synthesizer,
 }
 
 export const initialState = {
@@ -52,7 +52,7 @@ export const initialState = {
       s: 0.7,
       r: 0.7,
     }),
-  })
+  }),
 }
 
 App({ reducers, initialState, Layout, routes }).render()

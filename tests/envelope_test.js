@@ -3,8 +3,6 @@ import chai from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import { shallow, mount, render } from 'enzyme'
 
-import { spy } from 'simple-spy'
-
 import Envelope from '../src/components/envelope/Envelope'
 import EnvelopeItem from '../src/components/envelope-item/Envelope-item'
 

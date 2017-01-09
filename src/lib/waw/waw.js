@@ -7,8 +7,6 @@ type OscillatorItem = { key: string, oscillator: OscillatorNode, gainNode: GainN
 
 class Waw {
   audioCtx: AudioContext
-  gainNode: GainNode
-  oscillator: OscillatorNode
   oscillators: any
   volume: number
 
@@ -37,11 +35,10 @@ class Waw {
 
   envelopeStuff = (oscillatorItem: OscillatorItem) => {
     const currTime = this.audioCtx.currentTime
-    const { envelope } = oscillatorItem
+    const { envelope, gainNode } = oscillatorItem
 
-    const time = 0.3
-    const attack = { oscillatorItem, gain: this.volume, time: currTime + +envelope.a }
-    const decay = { oscillatorItem, gain: 0.1, time: attack.time + +envelope.d }
+    const attack = { gainNode, gain: this.volume, time: currTime + +envelope.a }
+    const decay = { gainNode, gain: 0.1, time: attack.time + +envelope.d }
 
     this.rampGain(attack)
     this.rampGain(decay)
@@ -66,11 +63,13 @@ class Waw {
     const index = this.oscillators.findIndex(osc => osc.key === key)
 
     if (index > -1) {
-      const oscillatorItem = this.oscillators.get(index)
-      const releaseTime = oscillatorItem.envelope.r
-      const time = this.audioCtx.currentTime + +releaseTime
-      const release = { oscillatorItem, gain: 0, time }
-      oscillatorItem.oscillator.stop(time)
+      const { gainNode, envelope, oscillator } = this.oscillators.get(index)
+
+      const time = this.audioCtx.currentTime + +envelope.r
+
+      const release = { gainNode, gain: 0, time }
+
+      oscillator.stop(time)
       this.rampGain(release)
       this.oscillators = this.oscillators.delete(index)
     }
@@ -80,13 +79,8 @@ class Waw {
     this.oscillators.forEach(o => o.oscillator.stop())
   }
 
-  oscillatorDidntStop(item: OscillatorItem): boolean {
-    const is = this.oscillators.findIndex(o => o.key === item.key)
-    return is > -1
-  }
-
-  rampGain = ({ oscillatorItem, gain, time }: {oscillatorItem: OscillatorItem, gain: number, time: number}) => {
-    oscillatorItem.gainNode.gain.linearRampToValueAtTime(gain, time)
+  rampGain = ({ gainNode, gain, time }: {gainNode: GainNode, gain: number, time: number}) => {
+    gainNode.gain.linearRampToValueAtTime(gain, time)
   }
 }
 
