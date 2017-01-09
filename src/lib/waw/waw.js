@@ -33,12 +33,16 @@ class Waw {
     return oscillator
   }
 
+  getLowestVolume = (volume: number, other: number) => other <= volume ? other : volume
+
   envelopeStuff = (oscillatorItem: OscillatorItem) => {
     const currTime = this.audioCtx.currentTime
     const { envelope, gainNode } = oscillatorItem
 
+    const sustain = this.getLowestVolume(this.volume, envelope.s)
+
     const attack = { gainNode, gain: this.volume, time: currTime + +envelope.a }
-    const decay = { gainNode, gain: 0.1, time: attack.time + +envelope.d }
+    const decay = { gainNode, gain: sustain, time: attack.time + +envelope.d }
 
     this.rampGain(attack)
     this.rampGain(decay)
