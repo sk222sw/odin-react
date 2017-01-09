@@ -30,7 +30,7 @@ let DevTools = IS_PROD ? NOOP : createDevTools(
 
 const initialEnhancers = IS_PROD ? [] : [
   DevTools.instrument(),
-  persistState(location.href.match(/[?&]debug_session=([^&]+)\b/))
+  persistState(location.href.match(/[?&]debug_session=([^&]+)\b/)),
 ]
 
 export default (options) => {
@@ -41,7 +41,7 @@ export default (options) => {
     middleware = [],
     reducers = {},
     enhancers = {},
-    routes = []
+    routes = [],
   } = options
 
   const frozen = Immutable.fromJS(initialState)
@@ -65,7 +65,7 @@ export default (options) => {
   )
 
   const history = syncHistoryWithStore(browserHistory, store, {
-    selectLocationState: state => state.has('routing') ? state.get('routing').toJS() : null
+    selectLocationState: state => state.has('routing') ? state.get('routing').toJS() : null,
   })
 
   const LayoutWrapper = (props) => (
@@ -89,6 +89,6 @@ export default (options) => {
         </Provider>,
         rootElement
       )
-    }
+    },
   }
 }
