@@ -3,7 +3,6 @@
 import { createAction } from 'redux-actions'
 import * as C from './constants'
 
-export const changeKey = createAction(C.CHANGE_KEY, payload => payload)
 export const changeWaveform = createAction(C.CHANGE_WAVEFORM, payload => payload)
 export const addKey = createAction(C.ADD_KEY, payload => payload)
 export const removeKey = createAction(C.REMOVE_KEY, payload => payload)

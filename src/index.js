@@ -10,8 +10,6 @@ export default function synthesizer(state = initialState, {type, payload}) {
   switch (type) {
     case C.CHANGE_WAVEFORM:
       return state.set('currentWaveform', payload)
-    case C.CHANGE_KEY:
-      return state.set('currentKey', payload)
     case C.ADD_KEY:
       return state.update('pressedKeys', p => p.push(payload))
     case C.REMOVE_KEY:
