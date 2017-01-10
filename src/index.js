@@ -24,6 +24,8 @@ export default function synthesizer(state = initialState, {type, payload}) {
       return state.setIn(['envelope', 's'], payload)
     case C.CHANGE_RELEASE:
       return state.setIn(['envelope', 'r'], payload)
+    case C.CHANGE_VOLUME:
+      return state.set('volume', payload)
     default:
       return state
   }
@@ -35,6 +37,7 @@ export const reducers = {
 
 export const initialState = {
   synthesizer: Immutable.Map({
+    volume: 0.4,
     currentWaveform: C.Waveforms.SINE,
     pressedKeys: Immutable.List(),
     waveforms: [
