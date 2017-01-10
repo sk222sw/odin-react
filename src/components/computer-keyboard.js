@@ -15,6 +15,7 @@ type propTypes = {
   addKey: any,
   removeKey: any,
   removeAllKeys: any,
+  volume: number,
 }
 
 function ComputerKeyboardEnhancer(WrappedComponent) {
@@ -22,7 +23,6 @@ function ComputerKeyboardEnhancer(WrappedComponent) {
     constructor(props: propTypes) {
       super(props)
       this.props = props
-
       this.waw = new Waw()
     }
 
@@ -56,6 +56,7 @@ function ComputerKeyboardEnhancer(WrappedComponent) {
       const { frequency } = this.filterByKeyPress(this.props.keys, key)
 
       this.waw.playNote({
+        volume: this.props.volume,
         key,
         frequency,
         waveform: this.props.currentWaveform,

@@ -13,7 +13,7 @@ const Volume = ({
   onChange,
 }: params) => (
   <div>
-    <SliderAndInput value={value} name={'volume'} onChange={onChange} step={1} />
+    <SliderAndInput value={value} name={'volume'} onChange={onChange} step={0.01} max={1} />
   </div>
 )
 

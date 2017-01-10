@@ -17,7 +17,7 @@ const EnvelopeItem = ({
   max,
 }: params) => (
   <div className="envelope-item">
-    <SliderAndInput step={0.1} onChange={onChange} value={value || 0} max={max} name={name} />
+    <SliderAndInput step={0.01} onChange={onChange} value={value || 0} max={max} name={name} />
   </div>
 )
 

@@ -16,7 +16,10 @@ class Waw {
     this.volume = 0.4
   }
 
-  playNote = ({ envelope, key, frequency, waveform }: Oscillator): OscillatorNode => {
+  setVolume = (volume: number) => this.volume = volume
+
+  playNote = ({ volume, envelope, key, frequency, waveform }: Oscillator): OscillatorNode => {
+    this.setVolume(volume)
     const oscillator = this.createOscillator({ key, frequency, waveform })
     const gainNode = this.createGain(oscillator)
 
