@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import Slider from 'rc-slider'
+import SliderAndInput from './slider-and-input'
 
 type params = {
   value: number,
@@ -13,7 +13,7 @@ const Volume = ({
   onChange,
 }: params) => (
   <div>
-    <Slider value={value} onChange={onChange} />
+    <SliderAndInput value={value} name={'volume'} onChange={onChange} step={1} />
   </div>
 )
 

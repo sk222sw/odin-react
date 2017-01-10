@@ -5,6 +5,7 @@ import { shallow, mount, render } from 'enzyme'
 import spy from 'spy/lib/spy'
 
 import EnvelopeItem from '../src/components/envelope-item/Envelope-item'
+import SliderAndInput from '../src/components/slider-and-input'
 
 const expect = chai.expect
 
@@ -24,9 +25,10 @@ describe('<EnvelopeItem />', () => {
 
   it('should change', () => {
     const fn = spy()
-    const wrapper = shallow(<EnvelopeItem onChange={fn} />)
-    const input = wrapper.find('.envelope-input')
-    input.simulate('change', {target: {value: 'hej'}})
+    const wrapper = mount(<EnvelopeItem value={0.3} onChange={fn} />)
+
+    wrapper.props().onChange(0.5)
+
     expect(fn.called).to.be.true
   })
 
