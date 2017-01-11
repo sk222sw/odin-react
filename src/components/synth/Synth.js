@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import { Waveforms } from '../waveforms/Waveforms'
+import VCO from '../vco'
 import ComputerKeyboardEnhancer from '../computer-keyboard'
 import Envelope from '../envelope/Envelope'
 import Volume from '../volume'
@@ -16,7 +16,7 @@ class Synth extends React.Component {
   render() {
     return (<div>
       <Volume value={this.props.volume} onChange={this.props.changeVolume} />
-      <Waveforms
+      <VCO
         waveforms={this.props.waveforms}
         currentWaveform={this.props.currentWaveform}
         onWaveformClick={this.props.onWaveformClick}
