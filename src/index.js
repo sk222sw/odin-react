@@ -5,11 +5,12 @@ import Layout from './layout'
 
 import * as C from './lib/constants'
 import { keys } from './assets/keys.json'
+import { updateMapInListInMapByKey } from './lib/helpers'
 
 export default function synthesizer(state = initialState, {type, payload}) {
   switch (type) {
     case C.CHANGE_WAVEFORM:
-      return state.set('currentWaveform', payload)
+      return updateMapInListInMapByKey(state, 'oscillators', 'name', payload.name, 'waveform', payload.waveform)
     case C.ADD_KEY:
       return state.update('pressedKeys', p => p.push(payload))
     case C.REMOVE_KEY:
@@ -38,7 +39,16 @@ export const reducers = {
 export const initialState = {
   synthesizer: Immutable.Map({
     volume: 0.4,
-    currentWaveform: C.Waveforms.SINE,
+    oscillators: Immutable.List([
+      Immutable.Map({
+        name: 'OSC 1',
+        waveform: C.Waveforms.SINE,
+      }),
+      Immutable.Map({
+        name: 'OSC 2',
+        waveform: C.Waveforms.SINE,
+      }),
+    ]),
     pressedKeys: Immutable.List(),
     waveforms: [
       C.Waveforms.SINE,
@@ -50,7 +60,7 @@ export const initialState = {
     envelope: Immutable.Map({
       a: 0.15,
       d: 0.4,
-      s: 0.7,
+      s: 0.3,
       r: 0.2,
     }),
   }),

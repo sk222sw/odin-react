@@ -16,11 +16,16 @@ class Synth extends React.Component {
   render() {
     return (<div>
       <Volume value={this.props.volume} onChange={this.props.changeVolume} />
-      <VCO
-        waveforms={this.props.waveforms}
-        currentWaveform={this.props.currentWaveform}
-        onWaveformClick={this.props.onWaveformClick}
-      />
+      {this.props.oscillators.map((osc, i) =>
+        <span key={i}>
+          <VCO
+            name={osc.name}
+            waveforms={this.props.waveforms}
+            currentWaveform={osc.waveform}
+            onWaveformClick={this.props.changeWaveform}
+          />
+        </span>
+      )}
       {this.props.envelope && <Envelope
         envelope={this.props.envelope}
         changeAttack={this.props.changeAttack}

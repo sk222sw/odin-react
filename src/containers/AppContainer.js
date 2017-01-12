@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   pressedKeys: state.getIn(['synthesizer', 'pressedKeys']),
   envelope: state.getIn(['synthesizer', 'envelope']).toJS(),
   volume: state.getIn(['synthesizer', 'volume']),
+  oscillators: state.getIn(['synthesizer', 'oscillators']).toJS(),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -21,6 +22,7 @@ const mapDispatchToProps = dispatch => ({
   changeSustain:   payload => dispatch(A.changeSustain(payload)),
   changeRelease:   payload => dispatch(A.changeRelease(payload)),
   changeVolume:    payload => dispatch(A.changeVolume(payload)),
+  changeWaveform:  payload => dispatch(A.changeWaveform(payload)),
 })
 
 export const AppContainer = connect(
