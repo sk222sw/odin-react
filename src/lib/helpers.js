@@ -17,7 +17,7 @@ export const getAndFindIndex = (state: Immutable.Map, firstPath: string, secondP
  *    -> fieldForComparison: the value that will be compared when iterating over the list
  * list: path to list, ie Map({ list: Immutable.List([...]) })
  */
-const updateMapInListInMapByKey = (
+export const updateMapInListInMapByKey = (
   map: Immutable.Map,
   list: string,
   keyForComparison: string,
