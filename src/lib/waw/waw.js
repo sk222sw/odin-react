@@ -60,19 +60,17 @@ class Waw {
   }
 
   deleteOscillator = (key: string): void => {
-    const index = this.oscillators.findIndex(osc => osc.key === key)
+    this.oscillators
+      .filter(o => o.key === key)
+      .map(({ gainNode, envelope, oscillator }) => {
+        const time = this.audioCtx.currentTime + +envelope.r
 
-    if (index > -1) {
-      const { gainNode, envelope, oscillator } = this.oscillators.get(index)
+        const release = { gainNode, gain: 0, time }
 
-      const time = this.audioCtx.currentTime + +envelope.r
-
-      const release = { gainNode, gain: 0, time }
-
-      oscillator.stop(time)
-      this.rampGain(release)
-      this.oscillators = this.oscillators.delete(index)
-    }
+        oscillator.stop(time)
+        this.rampGain(release)
+        this.oscillators = this.oscillators.filter(o => o.key !== key)
+      })
   }
 
   deleteAllOscillators = (): void => {
