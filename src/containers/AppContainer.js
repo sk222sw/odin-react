@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
   changeSustain:            payload => dispatch(A.changeSustain(payload)),
   changeRelease:            payload => dispatch(A.changeRelease(payload)),
   changeOscillatorWaveform: payload => dispatch(A.changeOscillatorWaveform(payload)),
+  changeSemitoneOffset:     payload => dispatch(A.changeSemitoneOffset(payload)),
 })
 
 export const AppContainer = connect(

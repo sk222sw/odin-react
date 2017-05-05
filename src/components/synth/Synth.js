@@ -18,7 +18,10 @@ class Synth extends React.Component {
         <Oscillator oscillator={o}
                     key={key}
                     changeOscillator={this.props.changeOscillatorWaveform}
-                    waveforms={this.props.waveforms} />
+                    waveforms={this.props.waveforms}
+                    semi={o.semitoneOffset}
+                    changeSemitoneOffset={this.props.changeSemitoneOffset}
+                    />
       )}
       {this.props.envelope && <Envelope
         envelope={this.props.envelope}
