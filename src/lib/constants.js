@@ -7,6 +7,7 @@ export const CHANGE_ATTACK = 'CHANGE_ATTACK'
 export const CHANGE_DECAY = 'CHANGE_DECAY'
 export const CHANGE_SUSTAIN = 'CHANGE_SUSTAIN'
 export const CHANGE_RELEASE = 'CHANGE_RELEASE'
+export const CHANGE_OSCILLATOR_WAVEFORM = 'CHANGE_OSCILLATOR_WAVEFORM'
 
 export const Waveforms = {
   SINE: 'sine',

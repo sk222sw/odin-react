@@ -6,10 +6,21 @@ import Layout from './layout'
 import * as C from './lib/constants'
 import { keys } from './assets/keys.json'
 
+// Todo: there must be a better way? :(
+function updateOscillatorInList(state, payload) {
+  const list = state.get('oscillators')
+  const listItemToUpdate = list.find(v => v.get('id') === payload.id)
+  const updatedListItem = listItemToUpdate.set('waveform', payload.waveform)
+  const updatedList = list.update(payload.id, i => updatedListItem)
+  return state.set('oscillators', updatedList)
+}
+
 export default function synthesizer(state = initialState, {type, payload}) {
   switch (type) {
     case C.CHANGE_WAVEFORM:
       return state.set('currentWaveform', payload)
+    case C.CHANGE_OSCILLATOR_WAVEFORM:
+      return updateOscillatorInList(state, payload)
     case C.CHANGE_KEY:
       return state.set('currentKey', payload)
     case C.ADD_KEY:
@@ -38,12 +49,14 @@ export const reducers = {
 export const initialState = {
   synthesizer: Immutable.Map({
     oscillators: Immutable.List([
-      {
+      Immutable.Map({
+        id: 0,
         waveform: C.Waveforms.SINE,
-      },
-      {
+      }),
+      Immutable.Map({
+        id: 1,
         waveform: C.Waveforms.TRIANGLE,
-      },
+      }),
     ]),
     pressedKeys: Immutable.List(),
     waveforms: [

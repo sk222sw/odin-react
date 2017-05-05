@@ -14,15 +14,16 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onKeyClick:      payload => dispatch(A.changeKey(payload)),
-  onWaveformClick: payload => dispatch(A.changeWaveform(payload)),
-  addKey:          payload => dispatch(A.addKey(payload)),
-  removeKey:       payload => dispatch(A.removeKey(payload)),
-  removeAllKeys:   payload => dispatch(A.removeAllKeys(payload)),
-  changeAttack:    payload => dispatch(A.changeAttack(payload)),
-  changeDecay:     payload => dispatch(A.changeDecay(payload)),
-  changeSustain:   payload => dispatch(A.changeSustain(payload)),
-  changeRelease:   payload => dispatch(A.changeRelease(payload)),
+  onKeyClick:               payload => dispatch(A.changeKey(payload)),
+  onWaveformClick:          payload => dispatch(A.changeWaveform(payload)),
+  addKey:                   payload => dispatch(A.addKey(payload)),
+  removeKey:                payload => dispatch(A.removeKey(payload)),
+  removeAllKeys:            payload => dispatch(A.removeAllKeys(payload)),
+  changeAttack:             payload => dispatch(A.changeAttack(payload)),
+  changeDecay:              payload => dispatch(A.changeDecay(payload)),
+  changeSustain:            payload => dispatch(A.changeSustain(payload)),
+  changeRelease:            payload => dispatch(A.changeRelease(payload)),
+  changeOscillatorWaveform: payload => dispatch(A.changeOscillatorWaveform(payload)),
 })
 
 export const AppContainer = connect(

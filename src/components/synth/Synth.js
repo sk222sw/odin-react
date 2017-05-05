@@ -19,7 +19,7 @@ class Synth extends React.Component {
           key={key}
           waveforms={this.props.waveforms}
           currentWaveform={o.waveform}
-          onWaveformClick={this.props.onWaveformClick}
+          onWaveformClick={newWaveform => this.props.changeOscillatorWaveform({id: o.id, waveform: newWaveform})}
         />
       )}
       {this.props.envelope && <Envelope
