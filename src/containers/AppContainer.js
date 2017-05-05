@@ -5,12 +5,11 @@ import Synth from '../components/synth/Synth'
 import * as A from '../../src/lib/actions'
 
 const mapStateToProps = state => ({
-  oscillators: state.getIn(['synthesizer', 'oscillators']).toJS(),
-  currentWaveform: state.getIn(['synthesizer', 'currentWaveform']),
-  keys: state.getIn(['synthesizer', 'keys']),
-  waveforms: state.getIn(['synthesizer', 'waveforms']),
-  pressedKeys: state.getIn(['synthesizer', 'pressedKeys']),
-  envelope: state.getIn(['synthesizer', 'envelope']).toJS(),
+  oscillators:     state.getIn(['synthesizer', 'oscillators']).toJS(),
+  keys:            state.getIn(['synthesizer', 'keys']),
+  waveforms:       state.getIn(['synthesizer', 'waveforms']),
+  pressedKeys:     state.getIn(['synthesizer', 'pressedKeys']),
+  envelope:        state.getIn(['synthesizer', 'envelope']).toJS(),
 })
 
 const mapDispatchToProps = dispatch => ({

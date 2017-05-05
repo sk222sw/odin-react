@@ -17,8 +17,6 @@ function updateOscillatorInList(state, payload) {
 
 export default function synthesizer(state = initialState, {type, payload}) {
   switch (type) {
-    case C.CHANGE_WAVEFORM:
-      return state.set('currentWaveform', payload)
     case C.CHANGE_OSCILLATOR_WAVEFORM:
       return updateOscillatorInList(state, payload)
     case C.CHANGE_KEY:
