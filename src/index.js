@@ -37,7 +37,14 @@ export const reducers = {
 
 export const initialState = {
   synthesizer: Immutable.Map({
-    currentWaveform: C.Waveforms.TRIANGLE,
+    oscillators: Immutable.List([
+      {
+        waveform: C.Waveforms.SINE,
+      },
+      {
+        waveform: C.Waveforms.TRIANGLE,
+      },
+    ]),
     pressedKeys: Immutable.List(),
     waveforms: [
       C.Waveforms.SINE,

@@ -14,11 +14,14 @@ class Synth extends React.Component {
 
   render() {
     return (<div>
-      <Waveforms
-        waveforms={this.props.waveforms}
-        currentWaveform={this.props.currentWaveform}
-        onWaveformClick={this.props.onWaveformClick}
-      />
+      {this.props.oscillators.map((o, key) =>
+        <Waveforms
+          key={key}
+          waveforms={this.props.waveforms}
+          currentWaveform={o.waveform}
+          onWaveformClick={this.props.onWaveformClick}
+        />
+      )}
       {this.props.envelope && <Envelope
         envelope={this.props.envelope}
         changeAttack={this.props.changeAttack}
