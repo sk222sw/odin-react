@@ -2,9 +2,9 @@
 
 import React from 'react'
 
-import { Waveforms } from '../waveforms/Waveforms'
 import ComputerKeyboardEnhancer from '../computer-keyboard'
 import Envelope from '../envelope/Envelope'
+import Oscillator from '../oscillator'
 
 class Synth extends React.Component {
   constructor(props) {
@@ -15,12 +15,10 @@ class Synth extends React.Component {
   render() {
     return (<div>
       {this.props.oscillators.map((o, key) =>
-        <Waveforms
-          key={key}
-          waveforms={this.props.waveforms}
-          currentWaveform={o.waveform}
-          onWaveformClick={newWaveform => this.props.changeOscillatorWaveform({id: o.id, waveform: newWaveform})}
-        />
+        <Oscillator oscillator={o}
+                    key={key}
+                    changeOscillator={this.props.changeOscillatorWaveform}
+                    waveforms={this.props.waveforms} />
       )}
       {this.props.envelope && <Envelope
         envelope={this.props.envelope}
