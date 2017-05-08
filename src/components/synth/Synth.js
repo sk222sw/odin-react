@@ -5,6 +5,7 @@ import React from 'react'
 import ComputerKeyboardEnhancer from '../computer-keyboard'
 import Envelope from '../envelope/Envelope'
 import Oscillator from '../oscillator'
+import Piano from '../piano'
 
 class Synth extends React.Component {
   constructor(props) {
@@ -32,6 +33,8 @@ class Synth extends React.Component {
         changeSustain={this.props.changeSustain}
         changeRelease={this.props.changeRelease}
       />}
+      <Piano keys={this.props.keys}
+             pressedKeys={this.props.pressedKeys.toJS()} />
     </div>)
   }
 }
