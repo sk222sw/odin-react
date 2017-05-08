@@ -8,6 +8,8 @@ const Oscillator = ({
   changeOscillator,
   semi,
   changeSemitoneOffset,
+  cent,
+  changeCentOffset,
 }) => <div>
   <Waveforms
     waveforms={waveforms}
@@ -21,6 +23,14 @@ const Oscillator = ({
                  type="number"
                  max="12"
                  min="-12" />
+  </div>
+
+  <div>
+    cent: <input value={cent}
+                 onChange={e => changeCentOffset({id: oscillator.id, centOffset: e.target.value})}
+                 type="number"
+                 max="50"
+                 min="-50" />
   </div>
 
   <hr />

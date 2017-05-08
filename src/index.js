@@ -37,6 +37,8 @@ export default function synthesizer(state = initialState, {type, payload}) {
       return state.setIn(['envelope', 'r'], payload)
     case C.CHANGE_SEMITONE_OFFSET:
       return updateOscillatorInList(state, payload, 'semitoneOffset')
+    case C.CHANGE_CENT_OFFSET:
+      return updateOscillatorInList(state, payload, 'centOffset')
     default:
       return state
   }
@@ -53,11 +55,13 @@ export const initialState = {
         id: 0,
         waveform: C.Waveforms.SINE,
         semitoneOffset: 0,
+        centOffset: 0,
       }),
       Immutable.Map({
         id: 1,
         waveform: C.Waveforms.TRIANGLE,
         semitoneOffset: 0,
+        centOffset: 0,
       }),
     ]),
     pressedKeys: Immutable.List(),

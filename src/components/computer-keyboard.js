@@ -55,13 +55,14 @@ function ComputerKeyboardEnhancer(WrappedComponent) {
 
       const { frequency } = this.filterByKeyPress(this.props.keys, key)
 
-      this.props.oscillators.forEach(({waveform, semitoneOffset}) => {
+      this.props.oscillators.forEach(({waveform, semitoneOffset, centOffset}) => {
         this.waw.playNote({
           key,
           frequency,
           detune: semitoneOffset,
           waveform,
           envelope: this.props.envelope,
+          cent: centOffset,
         })
       })
 

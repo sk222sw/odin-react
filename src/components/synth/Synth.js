@@ -21,6 +21,8 @@ class Synth extends React.Component {
                     waveforms={this.props.waveforms}
                     semi={o.semitoneOffset}
                     changeSemitoneOffset={this.props.changeSemitoneOffset}
+                    cent={o.centOffset}
+                    changeCentOffset={this.props.changeCentOffset}
                     />
       )}
       {this.props.envelope && <Envelope

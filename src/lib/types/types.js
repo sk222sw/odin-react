@@ -20,4 +20,5 @@ export type Oscillator = {
   frequency: number,
   waveform: OscillatorTypes,
   detune: number,
+  cent: number,
 }
