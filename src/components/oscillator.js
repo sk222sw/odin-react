@@ -1,5 +1,5 @@
+// @flow
 import React from 'react'
-
 import {Waveforms} from './waveforms/Waveforms'
 
 const Oscillator = ({

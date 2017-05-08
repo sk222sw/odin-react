@@ -16,8 +16,8 @@ class Waw {
     this.volume = 0.4
   }
 
-  playNote = ({ envelope, key, frequency, waveform }: Oscillator): OscillatorNode => {
-    const oscillator = this.createOscillator({ key, frequency, waveform })
+  playNote = ({ envelope, key, frequency, waveform, detune }: Oscillator): OscillatorNode => {
+    const oscillator = this.createOscillator({ key, frequency, waveform, detune })
     const gainNode = this.createGain(oscillator)
 
     oscillator.connect(gainNode)
@@ -51,10 +51,11 @@ class Waw {
     return gainNode
   }
 
-  createOscillator = ({ frequency, waveform }: Oscillator): OscillatorNode => {
+  createOscillator = ({ frequency, waveform, detune }: Oscillator): OscillatorNode => {
     const oscillator = this.audioCtx.createOscillator()
     oscillator.type = waveform
     oscillator.frequency.value = frequency
+    oscillator.detune.value = detune * 100
 
     return oscillator
   }
