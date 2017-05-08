@@ -56,7 +56,7 @@ class Waw {
     oscillator.type = waveform
     oscillator.frequency.value = frequency
     oscillator.detune.value = detune * 100
-    oscillator.detune.value += cent
+    oscillator.detune.value += +cent
 
     return oscillator
   }
