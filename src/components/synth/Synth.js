@@ -34,7 +34,13 @@ class Synth extends React.Component {
         changeRelease={this.props.changeRelease}
       />}
       <Piano keys={this.props.keys}
-             pressedKeys={this.props.pressedKeys.toJS()} />
+             pressedKeys={this.props.pressedKeys.toJS()}
+             oscillators={this.props.oscillators}
+             waw={this.props.waw}
+             envelope={this.props.envelope}
+             addKey={this.props.addKey}
+             removeKey={this.props.removeKey}
+            />
     </div>)
   }
 }
