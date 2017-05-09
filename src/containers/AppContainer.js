@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   waveforms:       state.getIn(['synthesizer', 'waveforms']),
   pressedKeys:     state.getIn(['synthesizer', 'pressedKeys']),
   envelope:        state.getIn(['synthesizer', 'envelope']).toJS(),
+  waw:             state.getIn(['synthesizer', 'waw']),
 })
 
 const mapDispatchToProps = dispatch => ({

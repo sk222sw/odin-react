@@ -3,6 +3,7 @@ import App from './app'
 import routes from './routes'
 import Layout from './layout'
 
+import Waw from './lib/waw/waw'
 import * as C from './lib/constants'
 import { keys } from './assets/keys.json'
 
@@ -48,6 +49,8 @@ export const reducers = {
   synthesizer,
 }
 
+const waw = new Waw()
+
 export const initialState = {
   synthesizer: Immutable.Map({
     oscillators: Immutable.List([
@@ -78,6 +81,7 @@ export const initialState = {
       s: 0.19,
       r: 0.11,
     }),
+    waw,
   }),
 }
 
