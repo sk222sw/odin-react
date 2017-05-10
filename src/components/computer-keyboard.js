@@ -1,8 +1,7 @@
 // @flow
 
-import Waw from '../lib/waw/waw'
-import { find } from '../lib/helpers'
-import { KeyType, EnvelopeType } from '../lib/types/types'
+import { EnvelopeType } from '../lib/types/types'
+import {handleKeyDown, handleKeyUp, removeAllKeys} from '../lib/waw-helper'
 
 type propTypes = {
   envelope: EnvelopeType,
@@ -15,6 +14,7 @@ type propTypes = {
   addKey: any,
   removeKey: any,
   removeAllKeys: any,
+  waw: any,
 }
 
 function ComputerKeyboardEnhancer(WrappedComponent) {
@@ -22,58 +22,30 @@ function ComputerKeyboardEnhancer(WrappedComponent) {
     constructor(props: propTypes) {
       super(props)
       this.props = props
-
-      this.waw = new Waw()
     }
 
     componentWillMount() {
-      global.window.addEventListener('keydown', this.handleKeyDown, false)
-      global.window.addEventListener('keyup', this.handleKeyUp, false)
-      global.window.addEventListener('blur', this.removeAllKeys, false)
+      global.window.addEventListener('keydown',
+        (e) => handleKeyDown(
+                this.props.pressedKeys,
+                this.props.keys,
+                this.props.oscillators,
+                this.props.waw,
+                this.props.envelope,
+                this.props.addKey
+              )(e.key),
+        false)
+      global.window.addEventListener('keyup', (e) => handleKeyUp(this.props.waw, this.props.removeKey)(e.key), false)
+      global.window.addEventListener('blur', removeAllKeys(this.props.waw, this.props.removeAllKeys), false)
     }
 
     componentWillUnmount() {
-      global.window.removeEventListener('keydown', this.handleKeyDown, false)
-      global.window.removeEventListener('keyup', this.handleKeyUp, false)
-      global.window.removeEventListener('blur', this.removeAllKeys, false)
+      global.window.removeEventListener('keydown', handleKeyDown, false)
+      global.window.removeEventListener('keyup', handleKeyUp, false)
+      global.window.removeEventListener('blur', this.props.removeAllKeys(this.props.waw), false)
     }
 
     props: propTypes
-    waw: Waw
-
-    keyIsPressed = (key: string): boolean =>
-      find(this.props.pressedKeys, key)
-
-    filterByKeyPress = (list: any[], key: string): KeyType =>
-      list.filter(k => k.keyPress === key)[0]
-
-    keyIsNotAssigned = (key: any): boolean =>
-      !this.props.keys.some(k => k.keyPress === key)
-
-    handleKeyDown = ({ key }: {key: string}) => {
-      if (this.keyIsPressed(key) || this.keyIsNotAssigned(key)) return
-
-      const { frequency } = this.filterByKeyPress(this.props.keys, key)
-
-      this.waw.playNote({
-        key,
-        frequency,
-        waveform: this.props.currentWaveform,
-        envelope: this.props.envelope,
-      })
-
-      this.props.addKey(key)
-    }
-
-    handleKeyUp = ({ key }: {key: string}) => {
-      this.waw.deleteOscillator(key)
-      this.props.removeKey(key)
-    }
-
-    removeAllKeys = () => {
-      this.props.removeAllKeys()
-      this.waw.deleteAllOscillators()
-    }
 
     render() {
       return super.render()

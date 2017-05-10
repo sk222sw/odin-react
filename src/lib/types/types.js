@@ -19,4 +19,6 @@ export type Oscillator = {
   key: string,
   frequency: number,
   waveform: OscillatorTypes,
+  detune: number,
+  cent: number,
 }

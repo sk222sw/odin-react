@@ -11,7 +11,7 @@ const SliderContainer = styled.div`
   justify-content: space-around;
 
   max-width: 300px;
-  margin-left: 50px;
+  margin: 8px;
 `
 
 const SliderInput = styled.input`
