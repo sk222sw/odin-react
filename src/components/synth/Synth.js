@@ -29,9 +29,8 @@ class Synth extends React.Component {
     return (<div>
       <Oscillators>
         {this.props.oscillators.map((o, key) =>
-          <OscillatorContainer>
+          <OscillatorContainer key={key}>
             <Oscillator oscillator={o}
-                        key={key}
                         changeOscillator={this.props.changeOscillatorWaveform}
                         waveforms={this.props.waveforms}
                         semi={o.semitoneOffset}
