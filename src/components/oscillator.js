@@ -32,8 +32,6 @@ const Oscillator = ({
                  max="50"
                  min="-50" />
   </div>
-
-  <hr />
 </div>
 
 export default Oscillator

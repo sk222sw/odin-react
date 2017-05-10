@@ -1,11 +1,22 @@
 // @flow
 
 import React from 'react'
+import styled from 'styled-components'
 
 import ComputerKeyboardEnhancer from '../computer-keyboard'
 import Envelope from '../envelope/Envelope'
 import Oscillator from '../oscillator'
 import Piano from '../piano'
+
+const Oscillators = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const OscillatorContainer = styled.div`
+  border: solid rgba(0, 0, 0, 0.2) 1px;
+  margin: 8px;
+`
 
 class Synth extends React.Component {
   constructor(props) {
@@ -13,19 +24,24 @@ class Synth extends React.Component {
     this.props = props
   }
 
+
   render() {
     return (<div>
-      {this.props.oscillators.map((o, key) =>
-        <Oscillator oscillator={o}
-                    key={key}
-                    changeOscillator={this.props.changeOscillatorWaveform}
-                    waveforms={this.props.waveforms}
-                    semi={o.semitoneOffset}
-                    changeSemitoneOffset={this.props.changeSemitoneOffset}
-                    cent={o.centOffset}
-                    changeCentOffset={this.props.changeCentOffset}
-                    />
-      )}
+      <Oscillators>
+        {this.props.oscillators.map((o, key) =>
+          <OscillatorContainer>
+            <Oscillator oscillator={o}
+                        key={key}
+                        changeOscillator={this.props.changeOscillatorWaveform}
+                        waveforms={this.props.waveforms}
+                        semi={o.semitoneOffset}
+                        changeSemitoneOffset={this.props.changeSemitoneOffset}
+                        cent={o.centOffset}
+                        changeCentOffset={this.props.changeCentOffset}
+                      />
+          </OscillatorContainer>
+        )}
+      </Oscillators>
       {this.props.envelope && <Envelope
         envelope={this.props.envelope}
         changeAttack={this.props.changeAttack}
